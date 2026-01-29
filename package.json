@@ -1,0 +1,20 @@
+{
+  "name": "pnpm-bun-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A monorepo using pnpm workspaces with Bun",
+  "packageManager": "pnpm@latest",
+  "scripts": {
+    "dev": "bun run --cwd apps/app dev",
+    "build": "pnpm -r build",
+    "test": "bun test",
+    "lint": "pnpm -r lint",
+    "type-check": "pnpm -r type-check"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "mongodb": "^7.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+[install]
+optional = true
+
+[bundle]
+# Bun automatically bundles dependencies with esbuild
+
+[test]
+preload = ["./test.setup.ts"]

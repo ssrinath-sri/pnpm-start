@@ -8,7 +8,8 @@
     "dev": "bun run --watch src/index.ts",
     "build": "bun build src/index.ts --outdir dist",
     "test": "bun test",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "auth-example": "bun src/auth-example.ts"
   },
   "dependencies": {
     "@workspace/utils": "workspace:*",

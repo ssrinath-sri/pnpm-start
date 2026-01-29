@@ -1,0 +1,11 @@
+node_modules/
+.bun/
+dist/
+build/
+.git/
+.gitignore
+README.md
+.env.local
+pnpm-lock.yaml
+*.log
+.DS_Store

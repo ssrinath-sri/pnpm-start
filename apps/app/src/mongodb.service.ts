@@ -1,6 +1,7 @@
 import { MongoClient, Db, Collection, ObjectId } from "mongodb";
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://root:mongodb@localhost:27017/myapp";
 const DB_NAME = process.env.DB_NAME || "myapp";
 
 interface IDocument {

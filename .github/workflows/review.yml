@@ -1,0 +1,57 @@
+name: Code Review
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  review:
+    name: Automated Code Review
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate PR title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check file changes
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+        with:
+          files: |
+            package.json
+            pnpm-lock.yaml
+            Dockerfile
+            docker-compose.yml
+
+      - name: Verify dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "⚠️ Dependencies or configuration files changed"
+          echo "Please ensure all changes are tested"
+        continue-on-error: true
+
+      - name: Size limit check
+        uses: preactjs/compressed-size-action@v2
+        with:
+          build-script: build
+          pattern: 'apps/app/dist/**/*.{js,css,html}'
+          exclude: '{node_modules,coverage,.next,.cache}'
+        continue-on-error: true

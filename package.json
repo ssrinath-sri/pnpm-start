@@ -8,11 +8,21 @@
     "dev": "bun run --cwd apps/app dev",
     "build": "pnpm -r build",
     "test": "bun test",
-    "lint": "pnpm -r lint",
-    "type-check": "pnpm -r type-check"
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix && prettier --write .",
+    "format": "prettier --write .",
+    "type-check": "pnpm -r type-check",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.54.0"
   },
   "dependencies": {
     "mongodb": "^7.0.0"

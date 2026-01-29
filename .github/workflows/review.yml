@@ -2,7 +2,7 @@ name: Code Review
 
 on:
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
 
 jobs:
   review:
@@ -52,6 +52,6 @@ jobs:
         uses: preactjs/compressed-size-action@v2
         with:
           build-script: build
-          pattern: 'apps/app/dist/**/*.{js,css,html}'
-          exclude: '{node_modules,coverage,.next,.cache}'
+          pattern: "apps/app/dist/**/*.{js,css,html}"
+          exclude: "{node_modules,coverage,.next,.cache}"
         continue-on-error: true

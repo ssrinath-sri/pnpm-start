@@ -69,26 +69,17 @@ class UserService {
     return user as IUser | null;
   }
 
-  async updateUser(
-    userId: string,
-    updateData: UpdateUserInput
-  ): Promise<boolean> {
+  async updateUser(userId: string, updateData: UpdateUserInput): Promise<boolean> {
     const updatePayload = {
       ...updateData,
       updatedAt: new Date(),
     };
 
     if (updateData.role) {
-      updatePayload["permissions"] = this.getPermissionsByRole(
-        updateData.role
-      );
+      updatePayload["permissions"] = this.getPermissionsByRole(updateData.role);
     }
 
-    return mongoService.updateById(
-      this.collectionName,
-      userId,
-      updatePayload
-    );
+    return mongoService.updateById(this.collectionName, userId, updatePayload);
   }
 
   async deleteUser(userId: string): Promise<boolean> {

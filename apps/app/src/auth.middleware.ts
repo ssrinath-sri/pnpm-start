@@ -41,9 +41,7 @@ class AuthMiddleware {
 
   requireRole(context: AuthContext, role: UserRole): void {
     if (!authService.hasRole(context.role, role)) {
-      throw new Error(
-        `Forbidden: Required role ${role}, got ${context.role}`
-      );
+      throw new Error(`Forbidden: Required role ${role}, got ${context.role}`);
     }
   }
 

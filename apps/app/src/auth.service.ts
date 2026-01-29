@@ -75,9 +75,7 @@ class AuthService {
       throw new Error("User account is inactive");
     }
 
-    const hashedInputPassword = await userService.hashPassword(
-      credentials.password
-    );
+    const hashedInputPassword = await userService.hashPassword(credentials.password);
     const passwordMatch = hashedInputPassword === user.password;
 
     if (!passwordMatch) {

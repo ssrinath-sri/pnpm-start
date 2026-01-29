@@ -53,11 +53,7 @@ async function runCRUDOperations() {
 
     // UPDATE - Update multiple documents
     console.log("\n=== UPDATE MANY ===");
-    await mongoService.updateMany(
-      collectionName,
-      { age: { $gte: 30 } },
-      { status: "senior" }
-    );
+    await mongoService.updateMany(collectionName, { age: { $gte: 30 } }, { status: "senior" });
 
     // READ - Verify updates
     console.log("\n=== VERIFY UPDATES ===");

@@ -47,9 +47,7 @@ async function runAuthenticationExample() {
       password: "admin123",
     });
     console.log("✅ Admin logged in");
-    console.log(
-      `   Token: ${loginResponse.token.substring(0, 20)}...`
-    );
+    console.log(`   Token: ${loginResponse.token.substring(0, 20)}...`);
     const adminToken = loginResponse.token;
 
     loginResponse = await authService.login({
@@ -102,9 +100,7 @@ async function runAuthenticationExample() {
       authMiddleware.requirePermission(guestContext, "write:data");
       console.log("✅ Guest can write data");
     } catch (error) {
-      console.log(
-        `❌ Guest cannot write data: ${(error as Error).message}`
-      );
+      console.log(`❌ Guest cannot write data: ${(error as Error).message}`);
     }
 
     // 4. ROLE-BASED ACCESS
@@ -124,9 +120,7 @@ async function runAuthenticationExample() {
       authMiddleware.requireRole(userContext, UserRole.ADMIN);
       console.log("✅ Admin role required: GRANTED to user");
     } catch (error) {
-      console.log(
-        `❌ Admin role required: DENIED to user - ${(error as Error).message}`
-      );
+      console.log(`❌ Admin role required: DENIED to user - ${(error as Error).message}`);
     }
 
     // 5. UPDATE USER ROLES
@@ -155,19 +149,15 @@ async function runAuthenticationExample() {
         password: "guest123",
       });
     } catch (error) {
-      console.log(
-        `❌ Cannot login with deactivated account: ${(error as Error).message}`
-      );
+      console.log(`❌ Cannot login with deactivated account: ${(error as Error).message}`);
     }
 
     // 7. LIST ALL ACTIVE USERS
     console.log("\n7️⃣  Listing all active users...");
     const allUsers = await userService.getAllUsers();
     console.log(`Found ${allUsers.length} active users:`);
-    allUsers.forEach((user) => {
-      console.log(
-        `   - ${user.username} (${user.email}) - Role: ${user.role}`
-      );
+    allUsers.forEach(user => {
+      console.log(`   - ${user.username} (${user.email}) - Role: ${user.role}`);
     });
 
     console.log("\n✅ Authentication example completed successfully!\n");

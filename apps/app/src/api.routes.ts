@@ -1,6 +1,6 @@
 /**
  * API Server with Authentication
- * 
+ *
  * This module demonstrates how to build authenticated API endpoints
  * using Express (or similar) with the auth middleware
  */
@@ -25,14 +25,9 @@ interface APIResponse {
 }
 
 // Simulated API handler decorator for protected routes
-function Protected(
-  requiredRole?: UserRole,
-  requiredPermission?: string
-) {
+function Protected(requiredRole?: UserRole, requiredPermission?: string) {
   return (handler: Function) => {
-    return async (
-      req: APIRequest
-    ): Promise<APIResponse> => {
+    return async (req: APIRequest): Promise<APIResponse> => {
       try {
         const token = req.headers.authorization?.replace("Bearer ", "");
 
@@ -89,52 +84,56 @@ async function handleLogin(req: APIRequest): Promise<APIResponse> {
 }
 
 // Protected endpoint - Requires authentication
-const handleGetProfile = Protected()(
-  async (req: APIRequest, context: AuthContext): Promise<APIResponse> => {
-    const user = await userService.getUserById(context.userId);
-    return {
-      status: 200,
-      data: user,
-    };
-  }
-);
+const handleGetProfile = Protected()(async (
+  req: APIRequest,
+  context: AuthContext
+): Promise<APIResponse> => {
+  const user = await userService.getUserById(context.userId);
+  return {
+    status: 200,
+    data: user,
+  };
+});
 
 // Protected endpoint - Requires USER role or higher
-const handleGetData = Protected(UserRole.USER)(
-  async (req: APIRequest, context: AuthContext): Promise<APIResponse> => {
-    return {
-      status: 200,
-      data: {
-        items: ["data1", "data2", "data3"],
-        userId: context.userId,
-      },
-    };
-  }
-);
+const handleGetData = Protected(UserRole.USER)(async (
+  req: APIRequest,
+  context: AuthContext
+): Promise<APIResponse> => {
+  return {
+    status: 200,
+    data: {
+      items: ["data1", "data2", "data3"],
+      userId: context.userId,
+    },
+  };
+});
 
 // Protected endpoint - Requires ADMIN role and read:users permission
-const handleListUsers = Protected(UserRole.ADMIN, "read:users")(
-  async (req: APIRequest, context: AuthContext): Promise<APIResponse> => {
-    const users = await userService.getAllUsers();
-    return {
-      status: 200,
-      data: users,
-    };
-  }
-);
+const handleListUsers = Protected(
+  UserRole.ADMIN,
+  "read:users"
+)(async (req: APIRequest, context: AuthContext): Promise<APIResponse> => {
+  const users = await userService.getAllUsers();
+  return {
+    status: 200,
+    data: users,
+  };
+});
 
 // Protected endpoint - Requires ADMIN role and write:users permission
-const handleDeleteUser = Protected(UserRole.ADMIN, "write:users")(
-  async (req: APIRequest, context: AuthContext): Promise<APIResponse> => {
-    const userId = req.body.userId;
-    const success = await userService.deleteUser(userId);
-    return {
-      status: success ? 200 : 404,
-      data: { deleted: success },
-      message: success ? "User deleted" : "User not found",
-    };
-  }
-);
+const handleDeleteUser = Protected(
+  UserRole.ADMIN,
+  "write:users"
+)(async (req: APIRequest, context: AuthContext): Promise<APIResponse> => {
+  const userId = req.body.userId;
+  const success = await userService.deleteUser(userId);
+  return {
+    status: success ? 200 : 404,
+    data: { deleted: success },
+    message: success ? "User deleted" : "User not found",
+  };
+});
 
 // API Router
 class APIRouter {

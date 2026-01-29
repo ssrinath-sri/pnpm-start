@@ -2,12 +2,12 @@ name: Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_run:
     workflows: ["CI/CD Pipeline"]
     types:
       - completed
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:

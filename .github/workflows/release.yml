@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
@@ -42,7 +42,7 @@ jobs:
           files: release-${{ github.ref_name }}.zip
           body: |
             ## Release ${{ github.ref_name }}
-            
+
             **Changes in this release:**
             - Build artifacts included
             - Ready for deployment
